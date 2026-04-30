@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Date Night Jar — Coming Soon to iOS</title>
+<meta name="description" content="The classic date night jar, reimagined. Add ideas, shake the jar, draw one at random. Coming soon to iOS.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #111;
+    --white: #fafafa;
+    --shadow: 5px 5px 0 #111;
+    --shadow-sm: 3px 3px 0 #111;
+  }
+
+  body {
+    font-family: -apple-system, 'Helvetica Neue', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px;
+    text-align: center;
+    position: relative;
+  }
+
+  .hero-icon {
+    width: 120px;
+    height: 120px;
+    border-radius: 28px;
+    border: 3px solid var(--black);
+    box-shadow: var(--shadow);
+    margin-bottom: 32px;
+  }
+
+  .hero h1 {
+    font-size: clamp(48px, 10vw, 96px);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    line-height: 0.95;
+    margin-bottom: 8px;
+  }
+
+  .squiggle {
+    display: block;
+    margin: 0 auto 16px;
+  }
+
+  .hero h2 {
+    font-size: clamp(16px, 3vw, 22px);
+    font-weight: 500;
+    max-width: 480px;
+    line-height: 1.5;
+    margin-bottom: 40px;
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    padding: 12px 28px;
+    border: 3px solid var(--black);
+    box-shadow: var(--shadow-sm);
+    background: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .badge-sub {
+    font-size: 13px;
+    opacity: 0.5;
+    font-weight: 600;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    opacity: 0.3;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  /* PHONE SHOWCASE */
+  .showcase {
+    padding: 80px 24px;
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .showcase-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .showcase h2 {
+    font-size: clamp(32px, 6vw, 56px);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .phone-scroll {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 0 24px;
+    scrollbar-width: none;
+  }
+
+  .phone-scroll::-webkit-scrollbar { display: none; }
+
+  .phone-card {
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+    text-align: center;
+  }
+
+  .phone-card img {
+    width: 260px;
+    height: auto;
+    border-radius: 24px;
+    border: 3px solid rgba(255,255,255,0.2);
+  }
+
+  .phone-card p {
+    margin-top: 16px;
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    opacity: 0.6;
+  }
+
+  /* FEATURES */
+  .features {
+    padding: 100px 24px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .features h2 {
+    font-size: clamp(32px, 6vw, 56px);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    margin-bottom: 48px;
+  }
+
+  .feature {
+    margin-bottom: 40px;
+    padding: 28px;
+    border: 3px solid var(--black);
+    box-shadow: var(--shadow);
+    background: var(--white);
+  }
+
+  .feature h3 {
+    font-size: 14px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+  }
+
+  .feature p {
+    font-size: 16px;
+    line-height: 1.6;
+    opacity: 0.7;
+  }
+
+  /* PRIVACY */
+  .privacy-strip {
+    padding: 48px 24px;
+    background: var(--black);
+    color: var(--white);
+    text-align: center;
+  }
+
+  .privacy-strip h3 {
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 12px;
+    opacity: 0.5;
+  }
+
+  .privacy-strip p {
+    font-size: clamp(20px, 4vw, 32px);
+    font-weight: 900;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.3;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 40px 24px;
+    text-align: center;
+    border-top: 3px solid var(--black);
+  }
+
+  footer p {
+    font-size: 13px;
+    opacity: 0.5;
+    font-weight: 600;
+  }
+
+  footer a {
+    color: var(--black);
+    text-decoration: underline;
+  }
+
+  footer nav {
+    margin-top: 12px;
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+  }
+
+  footer nav a {
+    margin: 0 12px;
+    opacity: 0.4;
+    text-decoration: none;
+  }
+
+  footer nav a:hover { opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <img src="images/app-icon.png" alt="Date Night Jar app icon" class="hero-icon">
+  <h1>Date<br>Night<br>Jar</h1>
+  <svg class="squiggle" width="80" height="8" viewBox="0 0 80 8"><path d="M2 4C10 1 15 7 22 4S35 1 42 4 55 7 62 4 75 1 78 4" stroke="#111" stroke-width="2" fill="none"/></svg>
+  <h2>The classic date night jar, reimagined. Add ideas, shake the jar, draw one at random, and make it completely yours.</h2>
+  <div class="badge">Coming Soon to iOS</div>
+  <p class="badge-sub">iPhone &middot; Free &middot; No ads</p>
+  <div class="scroll-hint">↓ Scroll ↓</div>
+</section>
+
+<!-- PHONE SHOWCASE -->
+<section class="showcase">
+  <div class="showcase-inner">
+    <h2>See It In Action</h2>
+    <div class="phone-scroll">
+      <div class="phone-card">
+        <img src="images/home-screen.png" alt="Your date night jar filled with ideas">
+        <p>Your Jar</p>
+      </div>
+      <div class="phone-card">
+        <img src="images/decor-screen.png" alt="Decorate your jar with stickers and doodles">
+        <p>Make It Yours</p>
+      </div>
+      <div class="phone-card">
+        <img src="images/customize-screen.png" alt="Choose your jar style and contents">
+        <p>Customize Everything</p>
+      </div>
+      <div class="phone-card">
+        <img src="images/ideas-screen.png" alt="Browse and manage all your date ideas">
+        <p>All Your Ideas</p>
+      </div>
+      <div class="phone-card">
+        <img src="images/new-idea-screen.png" alt="Add a new date idea with tags">
+        <p>Add New Ideas</p>
+      </div>
+      <div class="phone-card">
+        <img src="images/new-schedule-screen.png" alt="Schedule a date night">
+        <p>Plan Ahead</p>
+      </div>
+      <div class="phone-card">
+        <img src="images/schedule-screen.png" alt="View your upcoming date schedule">
+        <p>Stay On Track</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <h2>What's Inside</h2>
+
+  <div class="feature">
+    <h3>Shake the Jar</h3>
+    <p>Tap to shake — watch your ideas bounce around with real physics, then draw one at random. Mark it done or draw again.</p>
+  </div>
+
+  <div class="feature">
+    <h3>Your Ideas, Your Way</h3>
+    <p>Start with 12 curated date ideas or add your own. Tag them by mood — Romantic, Active, Cozy, Creative — then search and filter.</p>
+  </div>
+
+  <div class="feature">
+    <h3>Schedule Date Nights</h3>
+    <p>Pick a specific date or set up recurring nights — weekly, biweekly, or monthly. The app celebrates with confetti when it's date night.</p>
+  </div>
+
+  <div class="feature">
+    <h3>Draw &amp; Decorate</h3>
+    <p>Doodle freehand with your finger or Apple Pencil. Place stickers — trees, cacti, hearts, stars. Pinch, rotate, and drag to make it yours.</p>
+  </div>
+
+  <div class="feature">
+    <h3>4 Hand-Illustrated Jars</h3>
+    <p>Classic Mason, Round Bubble, Tall Vintage, or Wide Cookie. Pick your jar, choose light bulbs or paper balls, and adjust the size.</p>
+  </div>
+
+  <div class="feature">
+    <h3>Name Your Jar</h3>
+    <p>Call it whatever you want. Your names, a nickname, an inside joke — with adjustable font size so it looks just right.</p>
+  </div>
+</section>
+
+<!-- PRIVACY -->
+<section class="privacy-strip">
+  <h3>Private by Design</h3>
+  <p>No accounts. No internet. No tracking. All your data stays on your device. Always.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2026 Date Night Jar</p>
+  <nav>
+    <a href="privacy.html">Privacy</a>
+    <a href="support.html">Support</a>
+  </nav>
+</footer>
+
+</body>
+</html>
